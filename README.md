@@ -55,7 +55,7 @@ for (idx, amp) in zip(inds0, amps0):
     d[f_idx:f_idx + di] += amp * np.interp(x, xp, p)[:di]
 
 
-# Perform the fit. 
+# View fits. 
 fit_viewer.view(
     d, p, 
     th=1.5,
