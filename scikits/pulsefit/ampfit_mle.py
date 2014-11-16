@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 import numpy as np
 import ampfit_mle_c
@@ -7,7 +8,7 @@ class AmpFitMLE(object):
     estimation.
     """
     def __init__(self, debug=False):
-        pass
+        self.debug = debug
         
     
     def _compute_lambda_matrix(self, n_r, p, inds):
@@ -27,6 +28,8 @@ class AmpFitMLE(object):
         """Find the best-fit amplitude for pulses whose positions have been
         identified. 
         """
+        if self.debug:
+            print("\nFinding pulse amplitudes...")
 
         # No pulses - nothing to do.
         if len(block.inds) == 0:
@@ -51,7 +54,11 @@ class AmpFitMLE(object):
         else:
             try:
                 block.amps = np.linalg.solve(lam, phi)
-            except:
+            except Exception, ex:
+                if self.debug:
+                    print("    Error:", ex)
                 # This occurs when we have a singular matrix. 
                 block.amps = np.zeros_like(block.inds)
             
+        if self.debug:
+            print("    Amps:", block.amps)

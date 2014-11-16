@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 import numpy as np
 from scipy import optimize
@@ -19,6 +20,9 @@ class OptFitLeastSq(object):
 
         
     def optimize(self, block):
+        if self.debug:
+            print("\nOptimizing fit...")
+        
         # What we're trying to fit. 
         data = block.r[block.i0:block.i1]
 
@@ -49,7 +53,7 @@ class OptFitLeastSq(object):
             err_fn, x0, full_output=True)
         
         if self.debug and ier not in (1, 2, 3, 4):
-            print("Optimization failed: " + mesg)
+            print("    Optimization failed: " + mesg)
 
         block.inds = (xopt[:N] % idx_max) + exclude_pre
         block.amps = xopt[N:]
@@ -57,3 +61,9 @@ class OptFitLeastSq(object):
         # Store the best fit model. 
         util.model(b, block.inds, block.amps, p, model)
         util.residual(block)
+
+        if self.debug:
+            if ier not in (1, 2, 3, 4):
+                print("    Optimization failed: " + mesg)
+            print("    Inds:", block.inds)
+            print("    Amps:", block.amps)

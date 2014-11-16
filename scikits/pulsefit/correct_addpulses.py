@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 import numpy as np
 
@@ -21,6 +22,7 @@ class CorrectAddPulses(object):
         self.pulse_add_len = pulse_add_len
         self.th_min        = th_min
         self.min_dist      = min_dist
+        self.debug         = debug
 
 
     def sanitize(self, block):
@@ -32,6 +34,8 @@ class CorrectAddPulses(object):
             refit = True
             block.inds = block.inds[mask]
             block.amps = block.amps[mask]
+            if self.debug:
+                print("Correct: Removed low-amplitude pulses.")
 
         # Merge pulses that are too close together.
         if self.min_dist != 0 and len(block.inds) > 1:
@@ -43,6 +47,9 @@ class CorrectAddPulses(object):
                 new_inds[0] = block.inds[0]
                 if mask.sum() != 0:
                     new_inds[1:] = block.inds[1:][mask]
+
+                if self.debug:
+                    print("Correct: Merged pulses.")
             
         if refit:
             self.refit(block)
@@ -55,6 +62,9 @@ class CorrectAddPulses(object):
         
 
     def correct(self, block):
+        if self.debug:
+            print("\nCorrecting...")
+
         add_max = int((block.i1 - block.i0) / self.pulse_add_len)
 
         for i in xrange(add_max):
@@ -65,7 +75,11 @@ class CorrectAddPulses(object):
             idx_new = max(block.res.argmax() - block.p.argmax(), 0)
             inds = np.concatenate((block.inds, (idx_new,)))
             inds.sort()
-
             block.inds = inds
+
+            if self.debug:
+                print("    Adding pulse at:", idx_new)
+                print("    Inds:", block.inds)
+
             self.refit(block)
             self.sanitize(block)

@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 import numpy as np
 
@@ -17,7 +18,9 @@ class PulseIdentMPOC(object):
 
     def find_pulses(self, block, set_z=False):
         """Find the indices of pulses in the given block."""
-
+        if self.debug:
+            print("\nFinding pulse indices...")
+            
         r = block.r[block.i0:block.i1] - block.b
         p = block.p
         n = max(r.size, p.size)
@@ -55,4 +58,5 @@ class PulseIdentMPOC(object):
             block.inds = np.array((z.argmax(),), dtype=np.int64)
             
         if self.debug:
+            print("    Inds:", block.inds)
             block.kwinfo["z"] = z

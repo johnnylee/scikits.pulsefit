@@ -15,7 +15,7 @@ def fit_mpoc_mle(
         min_denom, exclude_pre, exclude_post, 
         p_err_len, sigma2, chi2red_max, abs_diff_max,
         correct=True, pulse_add_len=None, pulse_min_dist=0,
-        return_blocks=False, debug=False):
+        return_blocks=False, debug=False, cb=None):
     """fit_mpoc_mle
     
     Fit pulses using a modified phase-only correlation to identify pulse
@@ -96,7 +96,11 @@ def fit_mpoc_mle(
     
     return_blocks : bool
         If True, return a list of Block objects instead of 
-        concatenating and sorting the identified pulses. 
+        concatenating and sorting the identified pulses.
+    
+    cb : function(block) 
+        A function taking a block called after each block is
+        identified.
 
     Returns
     -------
@@ -109,8 +113,11 @@ def fit_mpoc_mle(
         res_max : The maximum absolute residual value for each pulse. 
 
     If return_blocks is True, return a list of fit blocks.
+
     """
-    
+    if debug:
+        np.set_printoptions(precision=2)
+
     # The block-identification routine. 
     block_ident = BlockIdentMedian(
         r, p, th, filt_len, pad_pre, pad_post, max_len, 
@@ -165,12 +172,19 @@ def fit_mpoc_mle(
         if not (np.all(block.flags == 0) or np.all(block.flags != 0)):
             util.remove_bad_pulses(block)
             block_ident.set_position(block.i0)
+            
+        # When debugging, save the residual for review. 
+        if debug:
+            block.kwinfo['r'] = r[block.i0:block.i1].copy()
 
         # Subtract pulses that fit properly. 
         util.subtract_pulses(block)
         
         # Save the block. 
         blocks.append(block)
+        
+        if cb is not None:
+            cb(block)
             
     if return_blocks:
         return blocks

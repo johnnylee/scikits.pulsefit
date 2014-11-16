@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 import numpy as np
 import blockident_median_c
@@ -30,14 +31,19 @@ class BlockIdentMedian(object):
         self.max_len = int(max_len)
         self.exclude_pre = pad_pre if exclude_pre is None else exclude_pre
         self.exclude_post = pad_post if exclude_post is None else exclude_post
-        
+        self.debug = debug        
         self.idx = filt_len # The current position in r.
+
 
         
     def next_block(self):
         """Get the next block for fitting. Returns None when the end 
         of the data is reached.
         """
+        if self.debug:
+            print("\nSearching for next block...")
+            print("    Starting index:", self.idx)
+
         # Call the C function that will do the actual search. 
         return_inds = np.zeros(2, dtype=np.int64)
         b = blockident_median_c.next_block(
@@ -66,8 +72,12 @@ class BlockIdentMedian(object):
         # Update current index. 
         self.idx = block.i1 - max(self.pad_post, self.filt_len)
         
+        if self.debug:
+            print("    Found block   :", block.i0)
+            print("    Length        :", block.i1 - block.i0)
+        
         return block
 
         
     def set_position(self, index):
-        self.idx = max(index, self.filt_len)
+        self.idx = max(index - self.filt_len, 0)

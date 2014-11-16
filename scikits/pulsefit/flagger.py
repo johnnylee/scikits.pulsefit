@@ -1,3 +1,4 @@
+from __future__ import print_function
 
 import numpy as np
 
@@ -21,9 +22,13 @@ class Flagger(object):
         self.sigma2 = sigma2
         self.chi2red_max = chi2red_max
         self.abs_diff_max = abs_diff_max
+        self.debug = debug
 
     
     def flag(self, block):
+        if self.debug:
+            print("\nFlagging...")
+
         # The number of degrees of freedom. This is equal to
         # (# observations) - (# fitted parameters) - 1
         # For each pulse, there are two fitted parameters: the 
@@ -44,3 +49,14 @@ class Flagger(object):
                 block.flags[i] = 2
             else:
                 block.flags[i] = 0
+        
+        if self.debug:
+            for flag in block.flags:
+                if flag == 0:
+                    print("    OK")
+                elif flag == 1:
+                    print("    Max residual too large.")
+                elif flag == 2:
+                    print("    Reduced chi^2 too large.")
+                else:
+                    print("    Unknown error.")
