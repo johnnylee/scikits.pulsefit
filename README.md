@@ -75,3 +75,7 @@ fit_viewer.view(
     pulse_add_len=70, 
     pulse_min_dist=2)
 ```
+
+The `view` function has the same signature as the function `fit_mpoc_mle`. 
+
+![Example](https://raw.githubusercontent.com/johnnylee/scikits.pulsefit/master/example/example.png)
