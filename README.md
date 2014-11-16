@@ -10,7 +10,12 @@ get some feedback. Please feel free to get in touch if you have any
 questions, comments, or suggestions. 
 
 I'd also be interested in any out of the ordinary real-world pulse
-shapes to test with. 
+shapes to test with.
+
+### To-do List
+
+* Make the threshold `th` work properly for bi-polar pulses.
+* Automatic noise estimation for reduced chi^2 computation? 
 
 ## Overview
 
