@@ -15,7 +15,6 @@ shapes to test with.
 ### To-do List
 
 * Automatic noise estimation for reduced chi^2 computation? 
-* Is `abs_diff_max` necessary?
 
 ## Overview
 
