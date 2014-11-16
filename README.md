@@ -94,8 +94,8 @@ Each plot shows a single block. The following information is plotted:
 * `Model` is the best fit to the data that was obtained. 
 * `Peaks` mark the peak of each fit pulse. 
 * `z` is the output of the modified phase-only correlation (MPOC)
-  algorithm. The `min_denom` parameter acts as a low-pass filter on
-  `z`.
+  algorithm used to initially identify the pulse positions. The
+  `min_denom` parameter acts as a low-pass filter on `z`.
 * `Threshold` is the `th` parameter. 
 * The green shaded region indicates the acceptable residual boundary
   given by the parameter `th_min`.
