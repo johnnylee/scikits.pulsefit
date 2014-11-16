@@ -7,12 +7,14 @@ A pulse-fitting library for python.
 
 The `pulsefit` package provides functions allowing one to identify the
 positions and amplitudes of a characteristic pulse shape within a
-larger data array. It's main features are:
+larger data array.       
 
-* It's robust when dealing with overlapping pulses.  
-* It uses linear interpolation to provide non-integer pulse positions.
-* It uses a fast moving-median filter to establish a baseline for
-  determining the pulse amplitude.
+### Features
+
+* Robust fitting in the face of overlapping pulses. 
+* Linear interpolation for continuous pulse locations. 
+* Fast moving-median filter for establishing the baseline. 
+* Good performance from key components written in C. 
 
 The `pulsefit` package currently provides a single function,
 `fit_mpoc_mle`. This function takes a fairly large number of
@@ -76,6 +78,27 @@ fit_viewer.view(
     pulse_min_dist=2)
 ```
 
-The `view` function has the same signature as the function `fit_mpoc_mle`. 
+The `view` function is provided as a way to conveniently review blocks
+as they're fit, and it has the same signature as the `fit_mpoc_mle`
+function.
+
+Here is an example plot:
 
 ![Example](https://raw.githubusercontent.com/johnnylee/scikits.pulsefit/master/example/example.png)
+
+Each plot shows a single block. The following information is plotted: 
+
+* `Raw Data` is the data we'd like to fit with some number of pulses.
+* `Residual` is the residual after the bset-fit pulses have been
+  subtracted from `Raw Data`. 
+* `Model` is the best fit to the data that was obtained. 
+* `Peaks` mark the peak of each fit pulse. 
+* `z` is the output of the modified phase-only correlation (MPOC)
+  algorithm. The `min_denom` parameter acts as a low-pass filter on
+  `z`.
+* `Threshold` is the `th` parameter. 
+* The green shaded region indicates the acceptable residual boundary
+  given by the parameter `th_min`.
+* The grey shaded regions are the excluded regions. These are
+  controled by `exclude_pre` and `exclude_post`.
+
