@@ -16,6 +16,7 @@ shapes to test with.
 
 * Make the threshold `th` work properly for bi-polar pulses.
 * Automatic noise estimation for reduced chi^2 computation? 
+* Is `abs_diff_max` necessary?
 
 ## Overview
 
