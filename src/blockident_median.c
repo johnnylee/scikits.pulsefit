@@ -75,7 +75,7 @@ static PyObject *next_block(PyObject *self, PyObject *args) {
   for(i1 = i0 + 1;
       (i1 < r_len) &&  ((i1 - i0) < di_max) && (n_below < pad_post);
       ++i1) {
-    if(r[i1] - b > th) {
+    if(r[i1] - b > th || -r[i1] + b > th) {
       n_below = 0;
     } else {
       ++n_below;

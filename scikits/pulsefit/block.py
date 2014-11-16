@@ -22,7 +22,6 @@ class Block(object):
     flags   - Numeric flags set by the fitting algorithm, per pulse.
               0 means no error.
     chi2red - The reduced chi^2 statistic for the fit.
-    res_max - The maximum absolute value in the residual.
 
     model   - An array containing the model data. 
     res     - An array containing the residual data. 
@@ -43,7 +42,6 @@ class Block(object):
         self.amps    = None
         self.flags   = None
         self.chi2red = None
-        self.res_max = None
 
         self.model   = np.empty(i1 - i0, dtype=np.float64)
         self.res     = np.empty(i1 - i0, dtype=np.float64)

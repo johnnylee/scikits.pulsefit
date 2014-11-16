@@ -14,7 +14,6 @@ shapes to test with.
 
 ### To-do List
 
-* Make the threshold `th` work properly for bi-polar pulses.
 * Automatic noise estimation for reduced chi^2 computation? 
 
 ## Overview
@@ -111,8 +110,8 @@ Each plot shows a single block. The following information is plotted:
   algorithm used to initially identify the pulse positions. The
   `min_denom` parameter acts as a low-pass filter on `z`.
 * `Threshold` is the `th` parameter. 
-* The green shaded region indicates the acceptable residual boundary
-  given by the parameter `th_min`.
+* The green shaded region indicates the lowest amplitude pulse that
+  will be fit, given by the parameter `th_min`.
 * The grey shaded regions are the excluded regions. These are
   controled by `exclude_pre` and `exclude_post`.
 

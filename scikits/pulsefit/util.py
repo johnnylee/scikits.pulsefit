@@ -27,7 +27,6 @@ def remove_bad_pulses(block):
     block.amps = block.amps[mask]
     block.flags = block.flags[mask]
     block.chi2red = block.chi2red[mask]
-    block.res_max = block.res_max[mask]
     
     # Recompute the model and residual. 
     model(block.b, block.inds, block.amps, block.p, block.model)

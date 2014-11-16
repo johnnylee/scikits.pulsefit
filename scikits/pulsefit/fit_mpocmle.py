@@ -13,7 +13,7 @@ def fit_mpoc_mle(
         r, p, 
         th, th_min, filt_len, pad_pre, pad_post, max_len, 
         min_denom, exclude_pre, exclude_post, 
-        p_err_len, sigma2, chi2red_max, abs_diff_max,
+        p_err_len, sigma2, chi2red_max, 
         correct=True, pulse_add_len=None, pulse_min_dist=0,
         return_blocks=False, debug=False, cb=None):
     """fit_mpoc_mle
@@ -75,14 +75,12 @@ def fit_mpoc_mle(
     
     p_err_len : int
         The number of samples to check for each pulse to determine
-        the reduced chi^2 and abs_diff values. 
+        the reduced chi^2.
     sigma2 : float 
         The variance in the noise. This is used to compute the 
         reduced chi^2. 
     chi2red_max : float
         The maximum acceptable reduced chi^2 value for a pulse fit. 
-    abs_diff_max : float
-        The maximum acceptable absolute difference for a pulse fit.
     
     correct : bool
         If True, attempt to correct errors. 
@@ -105,12 +103,11 @@ def fit_mpoc_mle(
     Returns
     -------
     If return_blocks is False (default), return 
-        (inds, amps, flags, chi2red, res_max) 
+        (inds, amps, flags, chi2red) 
         inds    : Indices of located pulses. 
         amps    : Amplitudes of located pulses. 
         flags   : A flag for each pulse. 0 means successfully fit. 
         chi2red : The reduced chi^2 value for each pulse. 
-        res_max : The maximum absolute residual value for each pulse. 
 
     If return_blocks is True, return a list of fit blocks.
 
@@ -133,8 +130,7 @@ def fit_mpoc_mle(
     opt_fit = OptFitLeastSq(amp_fit, debug=debug)
         
     # The flagger. 
-    flagger = Flagger(
-        p_err_len, sigma2, chi2red_max, abs_diff_max, debug=debug)
+    flagger = Flagger(p_err_len, sigma2, chi2red_max, debug=debug)
         
     # The error-correction routine. 
     corrector = None
@@ -194,8 +190,7 @@ def fit_mpoc_mle(
     amps = np.concatenate([b.amps for b in blocks])
     flags = np.concatenate([b.flags for b in blocks])
     chi2red = np.concatenate([b.chi2red for b in blocks])
-    res_max = np.concatenate([b.res_max for b in blocks])
 
     mask = inds.argsort()
     
-    return inds[mask], amps[mask], flags[mask], chi2red[mask], res_max[mask]
+    return inds[mask], amps[mask], flags[mask], chi2red[mask]

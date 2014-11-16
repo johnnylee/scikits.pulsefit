@@ -45,7 +45,6 @@ fit_viewer.view(
     p_err_len=40, 
     sigma2=sigma*sigma, 
     chi2red_max=2.0, 
-    abs_diff_max=1.25,
     correct=True, 
     pulse_add_len=70, 
     pulse_min_dist=2)
