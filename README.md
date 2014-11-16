@@ -5,10 +5,12 @@ A pulse-fitting library for python.
 
 ## Work in Progress
 
-This is a work in progress. Please get in touch if you have any
-comments, questions or suggestions. The interface will be stabilized
-after I get some feedback. Please feel free to get in touch if you
-have any questions, comments, or suggestions. 
+This is a work in progress. The interface will be stabilized after I
+get some feedback. Please feel free to get in touch if you have any
+questions, comments, or suggestions. 
+
+I'd also be interested in any out of the ordinary real-world pulse
+shapes to test with. 
 
 ## Overview
 
