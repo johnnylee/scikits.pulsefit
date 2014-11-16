@@ -3,6 +3,13 @@ scikits.pulsefit
 
 A pulse-fitting library for python. 
 
+## Work in Progress
+
+This is a work in progress. Please get in touch if you have any
+comments, questions or suggestions. The interface will be stabilized
+after I get some feedback. Please feel free to get in touch if you
+have any questions, comments, or suggestions. 
+
 ## Overview
 
 The `pulsefit` package provides functions allowing one to identify the
@@ -79,10 +86,10 @@ fit_viewer.view(
 ```
 
 The `view` function is provided as a way to conveniently review blocks
-as they're fit, and it has the same signature as the `fit_mpoc_mle`
+as they're fit. It has the same signature as the `fit_mpoc_mle`
 function.
 
-Here is an example plot:
+Here's an example plot of one block:
 
 ![Example](https://raw.githubusercontent.com/johnnylee/scikits.pulsefit/master/example/example.png)
 
