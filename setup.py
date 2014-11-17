@@ -11,7 +11,7 @@ a characteristic pulse shape.
 """
 MAINTAINER          = 'J. David Lee',
 MAINTAINER_EMAIL    = 'johnl@crumpington.com',
-URL                 = 'http://projects.scipy.org/scipy/scikits'
+URL                 = 'https://github.com/johnnylee/scikits.pulsefit'
 LICENSE             = 'MIT'
 DOWNLOAD_URL        = URL
 VERSION             = '0.1.1'
@@ -54,9 +54,9 @@ if __name__ == "__main__":
           include_package_data = True,
           zip_safe = True, # the package can run out of an .egg file?
           classifiers =
-          [ 'Development Status :: 1 - Planning',
+          [ 'Development Status :: 3 - Alpha',
             'Environment :: Console',
             'Intended Audience :: Developers',
             'Intended Audience :: Science/Research',
-            'License :: OSI Approved :: BSD License',
+            'License :: OSI Approved :: MIT License',
             'Topic :: Scientific/Engineering'])
