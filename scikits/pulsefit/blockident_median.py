@@ -32,9 +32,9 @@ class BlockIdentMedian(object):
         self.exclude_pre = pad_pre if exclude_pre is None else exclude_pre
         self.exclude_post = pad_post if exclude_post is None else exclude_post
         self.debug = debug        
+
         self.idx = filt_len # The current position in r.
-
-
+        
         
     def next_block(self):
         """Get the next block for fitting. Returns None when the end 
@@ -55,8 +55,8 @@ class BlockIdentMedian(object):
             self.r,
             return_inds)
         i0, i1 = return_inds
-        
-        # If the first index is the length of the block, we're at the end. 
+
+        # Are we at the end of the data? 
         if i0 == self.r.size:
             return None
 

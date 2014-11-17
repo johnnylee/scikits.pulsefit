@@ -33,7 +33,14 @@ class OptFitLeastSq(object):
         model = block.model
         b = block.b
         p = block.p
-
+        
+        # This check is here to prevent a segfault that occurs when
+        # idx_max goes negative.
+        if idx_max <= 1:
+            if self.debug:
+                print("    Block too short to optimize.")
+            return
+        
         def model_fn(args):
             inds = (args[:N] % idx_max) + exclude_pre
             amps = args[N:]
@@ -52,9 +59,6 @@ class OptFitLeastSq(object):
         xopt, cov_x, infodict, mesg, ier = optimize.leastsq(
             err_fn, x0, full_output=True)
         
-        if self.debug and ier not in (1, 2, 3, 4):
-            print("    Optimization failed: " + mesg)
-
         block.inds = (xopt[:N] % idx_max) + exclude_pre
         block.amps = xopt[N:]
 
