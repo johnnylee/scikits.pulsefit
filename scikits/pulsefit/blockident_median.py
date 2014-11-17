@@ -47,7 +47,7 @@ class BlockIdentMedian(object):
         # Call the C function that will do the actual search. 
         return_inds = np.zeros(2, dtype=np.int64)
         b = blockident_median_c.next_block(
-            self.idx, 
+            max(self.idx - self.filt_len, 0), 
             self.filt_len, 
             self.pad_post,
             self.max_len,
@@ -69,8 +69,10 @@ class BlockIdentMedian(object):
         block.exclude_pre = self.exclude_pre
         block.exclude_post = self.exclude_post
         
-        # Update current index. 
-        self.idx = block.i1 - max(self.pad_post, self.filt_len)
+        # Update current index, always making some progress. 
+        # This helps us avoid a problem that occurs when we reach the
+        # end of the data. 
+        self.set_position(max(self.idx + 1, block.i1 - self.exclude_post))
         
         if self.debug:
             print("    Found block   :", block.i0)
@@ -80,4 +82,4 @@ class BlockIdentMedian(object):
 
         
     def set_position(self, index):
-        self.idx = max(index - self.filt_len, 0)
+        self.idx = max(index, 0)

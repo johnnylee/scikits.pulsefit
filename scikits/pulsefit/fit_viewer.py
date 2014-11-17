@@ -10,7 +10,7 @@ def view(
         min_denom, exclude_pre, exclude_post, 
         p_err_len, sigma2, chi2red_max, 
         correct=True, pulse_add_len=None, pulse_min_dist=0,
-        return_blocks=False, cb=None):
+        return_blocks=False, debug=True, cb=None):
 
     plt.interactive(True)
 

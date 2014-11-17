@@ -65,10 +65,12 @@ class CorrectAddPulses(object):
         if self.debug:
             print("\nCorrecting...")
 
-        add_max = int((block.i1 - block.i0) / self.pulse_add_len)
+        add_max = max(1, int((block.i1 - block.i0) / self.pulse_add_len))
 
         for i in xrange(add_max):
             if np.all(block.flags == 0):
+                if self.debug:
+                    print("Correct: All OK.")
                 return
                 
             # Add a new pulse. 

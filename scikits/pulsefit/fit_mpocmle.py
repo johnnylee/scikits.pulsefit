@@ -1,4 +1,5 @@
- 
+from __future__ import print_function 
+
 import numpy as np
 
 from blockident_median import BlockIdentMedian
@@ -166,6 +167,8 @@ def fit_mpoc_mle(
         # keep the good fits in the block and rewind the block-
         # identification algorithm. 
         if not (np.all(block.flags == 0) or np.all(block.flags != 0)):
+            if debug:
+                print("Rewinding to:", block.i0)
             util.remove_bad_pulses(block)
             block_ident.set_position(block.i0)
             
