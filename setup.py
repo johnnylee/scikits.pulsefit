@@ -51,7 +51,6 @@ if __name__ == "__main__":
                   'scikits.pulsefit.util_c', 
                   ['src/util.c']),
           ],
-          include_package_data = True,
           zip_safe = True, # the package can run out of an .egg file?
           classifiers =
           [ 'Development Status :: 3 - Alpha',
