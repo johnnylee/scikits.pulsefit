@@ -4,7 +4,7 @@ from distutils.core import setup, Extension
 
 setup(
     name='scikits.pulsefit',
-    version='0.1.3',
+    version='0.1.4',
     description='Characteristic pulse fitting.',
 
     author='J. David Lee',
