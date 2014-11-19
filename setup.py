@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 
 from distutils.core import setup, Extension
+import numpy
 
 setup(
     name='scikits.pulsefit',
@@ -20,13 +21,16 @@ setup(
     ext_modules=[
         Extension(
             'scikits.pulsefit.blockident_median_c', 
-            ['src/blockident_median.c']),
+            ['src/blockident_median.c'],
+            include_dirs=[numpy.get_include()]),
         Extension(
             'scikits.pulsefit.ampfit_mle_c', 
-            ['src/ampfit_mle.c']),
+            ['src/ampfit_mle.c'],
+            include_dirs=[numpy.get_include()]),
         Extension(
             'scikits.pulsefit.util_c', 
-            ['src/util.c']),
+            ['src/util.c'],
+            include_dirs=[numpy.get_include()]),
     ],
     
     classifiers=[

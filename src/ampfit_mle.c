@@ -35,12 +35,12 @@ PyMODINIT_FUNC initampfit_mle_c(void) {
  *****************************************************************************/
 
 // calc_lam_ij computes a single entry in the lambda matrix. 
-inline npy_float64 calc_lam_ij(npy_int64    i0,  // Index of first pulse.
-                               npy_int64    i1,  // Index of second pulse. 
-                               npy_int64    n_r, // Block data length.
-                               npy_float64 *p,   // Pulse shape.
-                               npy_int64    n_p  // Pulse length. 
-                               ) {
+npy_float64 calc_lam_ij(npy_int64    i0,  // Index of first pulse.
+                        npy_int64    i1,  // Index of second pulse. 
+                        npy_int64    n_r, // Block data length.
+                        npy_float64 *p,   // Pulse shape.
+                        npy_int64    n_p  // Pulse length. 
+                        ) {
   // Note that it's required that i1 >= i0. 
   npy_int64 di = i1 - i0;
   npy_int64 imax = MIN(n_p - di, n_r - i0 - di);
@@ -95,12 +95,12 @@ static PyObject *compute_lambda_matrix(PyObject *self, PyObject *args) {
  *****************************************************************************/
 
 // calc_phi_i computes a single element of the phi array. 
-inline npy_float64 calc_phi_i(npy_int64    idx, // Pulse index.  
-                              npy_float64 *r,   // Raw data. 
-                              npy_int64    n_r, // Raw data length
-                              npy_float64 *p,   // Pulse shape.
-                              npy_int64    n_p  // Pulse length. 
-                              ) {
+npy_float64 calc_phi_i(npy_int64    idx, // Pulse index.  
+                       npy_float64 *r,   // Raw data. 
+                       npy_int64    n_r, // Raw data length
+                       npy_float64 *p,   // Pulse shape.
+                       npy_int64    n_p  // Pulse length. 
+                       ) {
   npy_int64 i;
   npy_int64 imax = MIN(n_p, n_r - idx);
   npy_float64 phii = 0;
