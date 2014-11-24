@@ -59,10 +59,10 @@ typedef struct _mm_handle mm_handle;
  * Return the index of the smallest child of the node. The pointer
  * child will also be set.
  */
-npy_int64 get_smallest_child(mm_node   **heap,
-                             npy_int64 size,
-                             npy_int64 idx,
-                             mm_node   **child) {
+inline npy_int64 get_smallest_child(mm_node   **heap,
+                                    npy_int64 size,
+                                    npy_int64 idx,
+                                    mm_node   **child) {
   npy_int64 i0 = FC_IDX(idx);
   npy_int64 i1 = i0 + NUM_CHILDREN;
   i1 = min(i1, size);
@@ -86,10 +86,10 @@ npy_int64 get_smallest_child(mm_node   **heap,
  * Return the index of the largest child of the node. The pointer
  * child will also be set. 
  */
-npy_int64 get_largest_child(mm_node **heap,
-                            npy_int64   size,
-                            npy_int64   idx,
-                            mm_node  **child) {
+inline npy_int64 get_largest_child(mm_node **heap,
+                                   npy_int64   size,
+                                   npy_int64   idx,
+                                   mm_node  **child) {
   npy_int64 i0 = FC_IDX(idx);
   npy_int64 i1 = i0 + NUM_CHILDREN;
   i1 = min(i1, size);
@@ -122,11 +122,11 @@ npy_int64 get_largest_child(mm_node **heap,
 /*
  * Move the given node up through the heap to the appropriate position. 
  */
-void move_up_small(mm_node   **heap,
-                   npy_int64 idx,
-                   mm_node   *node,
-                   npy_int64 p_idx,
-                   mm_node   *parent) {
+inline void move_up_small(mm_node   **heap,
+                          npy_int64 idx,
+                          mm_node   *node,
+                          npy_int64 p_idx,
+                          mm_node   *parent) {
   do {
     SWAP_NODES(heap, idx, node, p_idx, parent);
     if(idx == 0) {
@@ -140,10 +140,10 @@ void move_up_small(mm_node   **heap,
 /*
  * Move the given node down through the heap to the appropriate position. 
  */ 
-void move_down_small(mm_node   **heap,
-                     npy_int64 size,
-                     npy_int64 idx,
-                     mm_node   *node) {
+inline void move_down_small(mm_node   **heap,
+                            npy_int64 size,
+                            npy_int64 idx,
+                            mm_node   *node) {
   mm_node *child;
   npy_float64 val = node->val;
   npy_int64 c_idx = get_largest_child(heap, size, idx, &child);
@@ -158,11 +158,11 @@ void move_down_small(mm_node   **heap,
  * Move the given node down through the heap to the appropriate
  * position.
  */ 
-void move_down_large(mm_node   **heap,
-                     npy_int64 idx,
-                     mm_node   *node,
-                     npy_int64 p_idx,
-                     mm_node   *parent) {
+inline void move_down_large(mm_node   **heap,
+                            npy_int64 idx,
+                            mm_node   *node,
+                            npy_int64 p_idx,
+                            mm_node   *parent) {
   do {
     SWAP_NODES(heap, idx, node, p_idx, parent);
     if(idx == 0) {
@@ -176,10 +176,10 @@ void move_down_large(mm_node   **heap,
 /*
  * Move the given node up through the heap to the appropriate position. 
  */ 
-void move_up_large(mm_node   **heap,
-                   npy_int64 size,
-                   npy_int64 idx,
-                   mm_node   *node) {
+inline void move_up_large(mm_node   **heap,
+                          npy_int64 size,
+                          npy_int64 idx,
+                          mm_node   *node) {
   mm_node *child;
   npy_float64 val   = node->val;
   npy_int64 c_idx = get_smallest_child(heap, size, idx, &child);
@@ -193,12 +193,12 @@ void move_up_large(mm_node   **heap,
 /*
  * Swap the heap heads. 
  */
-void swap_heap_heads(mm_node   **s_heap,
-                     npy_int64 n_s,
-                     mm_node   **l_heap,
-                     npy_int64 n_l,
-                     mm_node   *s_node,
-                     mm_node   *l_node) {
+inline void swap_heap_heads(mm_node   **s_heap,
+                            npy_int64 n_s,
+                            mm_node   **l_heap,
+                            npy_int64 n_l,
+                            mm_node   *s_node,
+                            mm_node   *l_node) {
   s_node->small = 0;
   l_node->small = 1;
   s_heap[0] = l_node;

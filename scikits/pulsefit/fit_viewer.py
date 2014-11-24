@@ -12,7 +12,7 @@ def view(
         correct=True, pulse_add_len=None, pulse_min_dist=0,
         return_blocks=False, debug=True, cb=None):
 
-    plt.interactive(True)
+    plt.ion()
 
     def _view_block(b):
         fig = plt.gcf()
