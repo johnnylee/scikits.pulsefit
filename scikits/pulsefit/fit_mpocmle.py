@@ -137,7 +137,7 @@ def fit_mpoc_mle(
     corrector = None
     if correct:
         corrector = CorrectAddPulses(
-            amp_fit, opt_fit, flagger, pulse_add_len, pulse_min_dist, 
+            amp_fit, opt_fit, flagger, pulse_add_len, th_min, pulse_min_dist, 
             debug=debug)
 
     # Find and fit blocks. 
