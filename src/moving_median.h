@@ -228,7 +228,7 @@ mm_handle *mm_new(npy_int64 size) {
            (int)(size * sizeof(mm_node*)),
            (int)(size * sizeof(mm_node)));
     printf("Error: %i\n", errno);
-    printf(strerror(errno));
+    printf("%s", strerror(errno));
     printf("\n");
     exit(-1);
   }
